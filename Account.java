@@ -8,6 +8,7 @@ public class Account {
     private int customerID;
     private int pinNumber;
     private double savingBalance = 0;
+    private double checkingBalance = 0;
 
 
     Scanner input = new Scanner(System.in);
@@ -33,8 +34,50 @@ public class Account {
         return savingBalance;
     }
 
+    public double getCheckingBalance() { return checkingBalance; }
+
     public void setSavingBalance(double savingBalance) {
         this.savingBalance = savingBalance;
+    }
+
+    public void setCheckingBalance(double checkingBalance) {
+        this.checkingBalance = checkingBalance;
+    }
+
+    public double calcCheckingWithdraw(double amount) {
+        checkingBalance = (checkingBalance - amount);
+        return checkingBalance;
+    }
+
+    public double calcCheckingDeposit(double amount) {
+        checkingBalance = (checkingBalance + amount);
+        return checkingBalance;
+    }
+
+    public void getCheckingWithdrawInput(){
+        System.out.println("Saving Account Balance: " + moneyFormat.format(checkingBalance));
+        System.out.println("Amount you want to withdraw from Checking Account: ");
+        double amount = input.nextDouble();
+
+        if ((savingBalance - amount) >= 0) {
+            calcCheckingWithdraw(amount);
+            System.out.println("New Checking Account Balance: " + moneyFormat.format(checkingBalance));
+        } else {
+            System.out.println("Balance cannot be negative.");
+        }
+    }
+
+    public void getCheckingDepositInput(){
+        System.out.println("Saving Account Balance: " + moneyFormat.format(checkingBalance));
+        System.out.println("Amount you want to deposit to Checking Account: ");
+        double amount = input.nextDouble();
+
+        if ((checkingBalance - amount) <= 0) {
+            calcCheckingDeposit(amount);
+            System.out.println("New Checking Account Balance: " + moneyFormat.format(checkingBalance));
+        } else {
+            System.out.println("Balance cannot be negative.");
+        }
     }
 
 
